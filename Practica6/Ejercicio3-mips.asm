@@ -1,25 +1,32 @@
 # Hernández Navarro Armando - 317340347
 # Juan Carlos Zenteno Pompa - 316251608
 .data
-	
+	dividendo:  .word 222 # Numero que se usara  como dividendo
+	divisor: .word 4 #Numero que se usara como divisor
+.text
 
-.text 
-	## Inicio del programa
 	main:
+	lw $a0, dividendo # Cargamos el dividendo al registro a0
+	lw $a1, divisor # Cargamos  el dividendo al registro a1
+	
+	jal while # Llamamos al while con los parametros en $a0 y $a1
 	
 	
-		jal ejercicio3
+	
+	
+	while:
+	# Usa como parametros Dividendo = $a0, Divisor = $a1
+		blt $a0, $a1, exit # Salida del ciclo.
 		
-		## Finalización del programa. Sin esta linea, el programa nunca termina
-		li $v0, 10
-		syscall 
+		sub $a0, $a0, $a1 # Restamos al  dividendo
+		addi $v0, $v0, 1  # Añadimos 1 al cociente
 		
+		j while #Reiniciamos el loop en caso de que no haya salido
 	
-	#Declaración de la funcion
 	
-	#Copia el valor del registro $a1 al registro $v0
-	ejercicio3: 
+	exit:
+		#El cociente ya esta en el registro $v0, por el ciclo while
+		#Recordar que en los registros, el valor se expresa en exadecimal
 		
-	
-		jr $ra
+		add $v1, $a0,  $zero #Almacenamos el residuo en el registro $v1
 		
